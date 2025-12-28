@@ -1,0 +1,28 @@
+# render.yaml
+services:
+  - type: web
+    name: inventory-backend
+    env: java
+    region: oregon  # or singapore, frankfurt, etc.
+    plan: free
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/*.jar --spring.profiles.active=prod
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: inventory-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DDL_AUTO
+        value: validate
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+    healthCheckPath: /actuator/health
+    autoDeploy: true
+
+databases:
+  - name: inventory-db
+    databaseName: inventory_db
+    user: inventory_user
+    plan: free

@@ -41,3 +41,26 @@ build/
 # Application properties with passwords
 application-local.properties
 application-dev.properties
+
+### Application Configuration Files ###
+application-local.yml
+application-dev.yml
+
+### Log Files ###
+*.log
+logs/
+log/
+
+### Operating System Files ###
+.DS_Store
+Thumbs.db
+
+### Temporary Files ###
+*.swp
+*.swo
+*~
+*.tmp
+*.bak
+
+### Spring Boot Dev Tools ###
+spring-boot-devtools.properties
