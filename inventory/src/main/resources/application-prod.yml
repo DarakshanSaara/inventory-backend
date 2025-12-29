@@ -1,35 +1,21 @@
 # src/main/resources/application-prod.yml
 spring:
-  datasource:
-    url: ${DATABASE_URL}
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 5
-      connection-timeout: 30000
-  
   jpa:
-    hibernate:
-      ddl-auto: validate  # Use validate in production!
-    show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc:
-          lob:
-            non_contextual_creation: true
-        temp:
-          use_jdbc_metadata_defaults: false
-
-server:
-  port: ${PORT:8080}
-
-app:
-  jwt:
-    secret: ${JWT_SECRET}
-    expiration: 86400000
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+  
+  datasource:
+    hikari:
+      connection-timeout: 30000
+      max-lifetime: 1800000
+      idle-timeout: 600000
 
 logging:
   level:
     root: WARN
     com.zcrom.inventory: INFO
+    org.springframework: WARN

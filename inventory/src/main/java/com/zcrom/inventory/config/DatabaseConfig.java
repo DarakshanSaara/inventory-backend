@@ -1,10 +1,7 @@
 package com.zcrom.inventory.config;
 
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-
 import javax.sql.DataSource;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,7 +9,6 @@ import java.net.URISyntaxException;
 @Configuration
 public class DatabaseConfig {
 
-    @Bean
     @Profile("prod")
     public DataSource dataSource() throws URISyntaxException {
         String databaseUrl = System.getenv("DATABASE_URL");
@@ -23,20 +19,28 @@ public class DatabaseConfig {
             
             String username = dbUri.getUserInfo().split(":")[0];
             String password = dbUri.getUserInfo().split(":")[1];
-            String url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
             
-            // Add SSL parameters for Render PostgreSQL
+            // Build JDBC URL with SSL
+            String url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
             url += "?sslmode=require&ssl=true";
             
-            return DataSourceBuilder.create()
-                    .url(url)
-                    .username(username)
-                    .password(password)
-                    .driverClassName("org.postgresql.Driver")
-                    .build();
+            // Create datasource
+            org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource();
+            dataSource.setUrl(url);
+            dataSource.setUsername(username);
+            dataSource.setPassword(password);
+            dataSource.setDriverClassName("org.postgresql.Driver");
+            dataSource.setTestOnBorrow(true);
+            dataSource.setTestWhileIdle(true);
+            dataSource.setValidationQuery("SELECT 1");
+            dataSource.setMaxActive(10);
+            dataSource.setMaxIdle(5);
+            dataSource.setMaxIdle(2);
+            dataSource.setInitialSize(2);
+            
+            return (DataSource) dataSource;
         }
         
-        // Fallback to Spring Boot auto-configuration
-        return null;
+        return null; // Use Spring Boot auto-configuration
     }
 }
