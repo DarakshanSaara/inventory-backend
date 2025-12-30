@@ -1,18 +1,32 @@
 package com.zcrom.inventory.controller;
 
 import org.springframework.web.bind.annotation.*;
+import java.util.*;
 
 @RestController
-@RequestMapping({"/test", "/api/test"})  // Handle both paths
+@RequestMapping("/api")
+@CrossOrigin(origins = "*")  // Allow all origins
 public class TestController {
     
-    @GetMapping("/public")
-    public String publicEndpoint() {
-        return "Public endpoint is working! API Version: 1.0";
+    @GetMapping("/test")
+    public Map<String, String> test() {
+        return Map.of("message", "Backend API is working!");
     }
     
-    @GetMapping("/secure")
-    public String secureEndpoint() {
-        return "Secure endpoint is working!";
+    @GetMapping("/products/public")
+    public List<Map<String, Object>> getPublicProducts() {
+        return Arrays.asList(
+            Map.of("id", 1, "name", "Test Product 1", "price", 99.99, "stock", 10),
+            Map.of("id", 2, "name", "Test Product 2", "price", 49.99, "stock", 5)
+        );
+    }
+    
+    @GetMapping("/products/dashboard/public")
+    public Map<String, Object> getPublicDashboardStats() {
+        return Map.of(
+            "totalProducts", 25,
+            "totalValue", 15432.67,
+            "lowStockCount", 4
+        );
     }
 }

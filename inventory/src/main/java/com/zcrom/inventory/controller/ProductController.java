@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(origins = {"http://localhost:3000", "https://inventory-frontend-vert-eight.vercel.app"})
+// @CrossOrigin(origins = {"http://localhost:3000", "https://inventory-frontend-vert-eight.vercel.app"})
+@CrossOrigin(origins = "*")
 public class ProductController {
 
     @Autowired

@@ -42,23 +42,25 @@ public class SecurityConfig {
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authorizeHttpRequests(auth -> auth
+                .anyRequest().permitAll()
+
                 // PUBLIC ENDPOINTS
-                .requestMatchers("/").permitAll()
-                .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/test/**").permitAll()
-                .requestMatchers("/test/**").permitAll()
-                .requestMatchers("/error").permitAll()
-                .requestMatchers("/favicon.ico").permitAll()
-                .requestMatchers("/health").permitAll()
+                // .requestMatchers("/").permitAll()
+                // .requestMatchers("/auth/**").permitAll()
+                // .requestMatchers("/api/auth/**").permitAll()
+                // .requestMatchers("/api/test/**").permitAll()
+                // .requestMatchers("/test/**").permitAll()
+                // .requestMatchers("/error").permitAll()
+                // .requestMatchers("/favicon.ico").permitAll()
+                // .requestMatchers("/health").permitAll()
                 
-                // PROTECTED ENDPOINTS
-                .anyRequest().authenticated()
-            )
-            .authenticationProvider(authenticationProvider())  // Use this instead of .userDetailsService()
-            .addFilterBefore(
-                jwtAuthenticationFilter,
-                UsernamePasswordAuthenticationFilter.class
+                // // PROTECTED ENDPOINTS
+                // .anyRequest().authenticated()
+            // )
+            // .authenticationProvider(authenticationProvider())  // Use this instead of .userDetailsService()
+            // .addFilterBefore(
+            //     jwtAuthenticationFilter,
+            //     UsernamePasswordAuthenticationFilter.class
             );
 
         return http.build();
