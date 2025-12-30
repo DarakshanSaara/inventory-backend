@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(origins = "http://localhost:3000") // Allow React frontend
+@CrossOrigin(origins = {"http://localhost:3000", "https://inventory-frontend-vert-eight.vercel.app"})
 public class ProductController {
 
     @Autowired
