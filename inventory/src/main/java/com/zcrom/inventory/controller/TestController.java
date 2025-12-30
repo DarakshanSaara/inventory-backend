@@ -3,12 +3,12 @@ package com.zcrom.inventory.controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping({"/test", "/api/test"})  // Handle both paths
 public class TestController {
     
     @GetMapping("/public")
     public String publicEndpoint() {
-        return "Public endpoint is working!";
+        return "Public endpoint is working! API Version: 1.0";
     }
     
     @GetMapping("/secure")
