@@ -1,8 +1,11 @@
 # 📦 Inventory Management System - Backend (Spring Boot)
 
 https://img.shields.io/badge/Spring%2520Boot-3.1.6-green
+
 https://img.shields.io/badge/Java-17-blue
+
 https://img.shields.io/badge/PostgreSQL-15-blue
+
 https://img.shields.io/badge/License-MIT-yellow
 
 ## 📋 Project Overview
