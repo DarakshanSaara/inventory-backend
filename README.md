@@ -257,7 +257,7 @@ curl -X POST https://inventory-backend-aq7l.onrender.com/api/products \
     "currentStock": 25
   }'
 ```
-
+<!--
 ## 🙏 Acknowledgments
 Spring Boot Team for the amazing framework
 
@@ -266,6 +266,7 @@ MySQL for robust database management
 Render for free hosting
 
 ZCROM Technologies for the assignment opportunity
+-->
 
 ## 👨‍💻 Author
 Saara Darakshan
